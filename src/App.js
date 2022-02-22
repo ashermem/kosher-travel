@@ -1,24 +1,38 @@
 import logo from './logo.svg';
 import './App.css';
+import styled from "styled-components";
 
-function App() {
+const SearchContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const SearchBar = styled.input`
+  justify-content: center;
+  width: 80%;
+  height: 55px;
+  margin-top: 55px;
+  display: inline-block;
+  border: 4px solid #658ccb;
+  border-radius: 7px;
+  box-sizing: border-box;
+  padding: 7px 0;
+  background-color: #ffffff;
+
+  :focus {
+    background-color: rgb(195, 221, 255);
+    box-shadow: 0px 3px 5px 0px rgba(69, 42, 167, 0.5);
+  }
+`;
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        <SearchContainer>
+          <SearchBar />
+        </SearchContainer>
+      </div>
   );
 }
 
