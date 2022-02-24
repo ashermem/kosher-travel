@@ -52,7 +52,7 @@ export const CityName = styled.div`
 
 export const CityDesc = styled.div`
   width: 80%;
-   font-size: 16px;
+  font-size: 16px;
   float: right;
   margin: 10px 18px 0 0;
   font-family: "Al Bayan";
@@ -73,7 +73,7 @@ export const CardRow = styled.div`
   flex-direction: row;
   flex-flow: row wrap;
   column-gap: 24px;
-  row-gap: 30px;
+  row-gap: 40px;
   justify-content: space-between;
 `;
 export const CityCard = styled.div`
@@ -142,8 +142,6 @@ const Home = () => {
                     <CityName>{Paris.nameHebrew} ({Paris.nameEnglish})</CityName>
                     <CityDesc>{Paris.description}</CityDesc>
                 </CityCard>
-            </CardRow>
-            <CardRow>
                 <CityCard onClick={() => onCardClick(Athene.id)}>
                     <CityImg src={Athene.imgSrc} />
                     <CityName>{Athene.nameHebrew} ({Athene.nameEnglish})</CityName>
