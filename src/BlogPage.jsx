@@ -23,6 +23,9 @@ const BlogImg = styled.img`
   position: absolute;
   z-index: -1;
   border-radius: 5px;
+  @media screen and (max-width: 1280px) {
+    width: 30%;
+  }
 `;
 
 const CityTitle = styled.div`
@@ -35,9 +38,12 @@ const CityTitle = styled.div`
 const CityText = styled.div`
   font-family: "Al Bayan";
   font-size: 24px;
-  width: 750px;
+  width: 43%;
   align-self: flex-end;
   margin: 30px 100px 0 0;
+  @media screen and (max-width: 1280px) {
+    width: 30%;
+  }
 `;
 
 function useQuery() {

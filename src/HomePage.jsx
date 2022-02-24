@@ -22,6 +22,7 @@ const HomeContainer = styled.div`
 `;
 
 export const WebsiteHeader = styled.div`
+  cursor: pointer;
   top: 0;
   font-size: 56px;
   font-family: monospace;
@@ -33,6 +34,7 @@ export const WebsiteHeader = styled.div`
   background-color: #3f3fb3;
   position: fixed;
   box-shadow: 2px 2px 4px gray;
+  z-index: 999;
 `;
 
 export const CityImg = styled.img`
