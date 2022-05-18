@@ -6,8 +6,8 @@ import {
     Route,
     Link
 } from "react-router-dom";
-import Home, {AddToBlogButton, WebsiteHeader} from "./HomePage";
-import {BlogPage} from "./BlogPage";
+import Home, {AddToBlogButton, WebsiteHeader} from "./components/HomePage";
+import {BlogPage} from "./components/BlogPage";
 
 const App = () => {
   return (

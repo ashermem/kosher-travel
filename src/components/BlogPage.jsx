@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { WebsiteHeader} from "./HomePage";
 import {useParams, useLocation, useHistory} from "react-router-dom";
-import {citiesArray} from "./citesData";
+import {citiesArray} from "../citesData";
 import React from "react";
 import { Autocomplete } from "./Autocomplete";
 
@@ -13,11 +13,11 @@ const BlogContainer = styled.div`
   width: 100%;
 `;
 
-const BlogImg = styled.img`
+export const BlogImg = styled.img`
   align-self: flex-start;
   width: 420px;
   height: 350px;
-  margin-top: 200px;
+  margin-top: 140px;
   margin-left: 200px;
   float: left;
   position: absolute;
@@ -28,14 +28,14 @@ const BlogImg = styled.img`
   }
 `;
 
-const CityTitle = styled.div`
+export const CityTitle = styled.div`
   font-family: 'Bellefair', serif;
   font-size: 72px;
   align-self: flex-end;
   margin: 30px 100px 0 0;
 `;
 
-const CityText = styled.div`
+export const CityText = styled.div`
   font-family: "Al Bayan";
   font-size: 24px;
   width: 43%;
