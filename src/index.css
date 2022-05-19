@@ -8,8 +8,9 @@ body {
   margin: 0;
   height: 100%;
   width: 100%;
-  background-color: #8EC5FC;
-  background-image: linear-gradient(62deg, #8EC5FC 0%, #E0C3FC 100%);
+  background-color: #ffffff;
+  /*background-image: linear-gradient(62deg, #FFF 0%, #d0c7d5 100%);*/
+  /*background-image: #d0c7d5;*/
   /*background: linear-gradient(to right, #1c92d2, #f2fcfe);*/
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

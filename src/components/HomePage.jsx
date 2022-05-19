@@ -5,6 +5,7 @@ import React, {useCallback, useMemo, useState} from "react";
 import { useHistory } from "react-router-dom";
 import { Autocomplete } from "./Autocomplete";
 import { CityText, CityTitle} from "./BlogPage";
+import {getCityData} from "../APIService";
 
 export const Credit = styled.div`
   margin-top: 24px;
@@ -30,9 +31,9 @@ export const WebsiteHeader = styled.div`
   width: 100%;
   height: 70px;
   font-weight: 900;
-  color: #73cae0;
+  color: #F5F9FD;
   text-align: center;
-  background-color: #3f3fb3;
+  background-color: #53BCFF;
   position: fixed;
   box-shadow: 2px 2px 4px gray;
   z-index: 999;
@@ -102,28 +103,28 @@ export const CityCard = styled.div`
 `;
 
 export const AddToBlogButton = styled.button`
-    float: left;
-    display: flex;
-    position: absolute;
-    align-self: flex-start;
-    align-content: center;
-    width: 90px;
-    font-size: 14px;
-    font-weight: 500;
-    font-family: "Al Bayan";
-    margin: 22px 0 0 30px;
-    height: 27px;
-    background-color: dodgerblue;
-    border-radius: 20px;
+  float: left;
+  display: flex;
+  position: absolute;
+  align-self: flex-start;
+  align-content: center;
+  width: 90px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: "Al Bayan";
+  margin: 22px 0 0 30px;
+  height: 27px;
+  background-color: rgba(64, 120, 168, 0.2);
+  border-radius: 20px;
 `;
 
 export const ResturantContainer = styled.div`
   display: flex;
   margin-bottom: 18px;
   flex-direction: column;
-  width: 300px;
+  max-width: 650px;
   box-shadow: 1px 2px gray;
-  background-image: linear-gradient(130deg, #D9AFD9 0%, #97D9E1 100%);
+  background-image: linear-gradient(130deg, #BBDFFB 0%, #53BCFF 100%);
   border-radius: 8px;
   padding: 24px;
 `;
@@ -131,6 +132,8 @@ export const ResturantContainer = styled.div`
 const ResturantName = styled.div`
   float: right;
   font-family: "Al Bayan";
+  font-size: 18px;
+  font-weight: bold;
   text-align: right;
 `;
 
@@ -150,35 +153,38 @@ const ResturantType = styled.div`
 const ResturantsAndGeneralWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  width: 80%;
   margin-right: 84px;
+  justify-content: space-between;
   margin-top: 22px;
   align-self: end;
-  @media screen and (max-width: 1280px) {
-    margin-top: 700px;
-    flex-direction: column;
-  }
+  //@media screen and (max-width: 1280px) {
+  //  margin-top: 700px;
+  //  flex-direction: column;
+  //}
 `;
 
 export const BlogImg = styled.img`
-  align-self: flex-start;
-  width: 420px;
-  height: 350px;
-  margin-top: 140px;
-  margin-left: 200px;
+  //align-self: flex-start;
+  width: 90%;
+  //height: 350px;
+  margin-top: 24px;
+  //margin-left: 200px;
   float: left;
-  position: absolute;
+  //position: absolute;
   z-index: -1;
   border-radius: 5px;
-  @media screen and (max-width: 1280px) {
-    width: 50%;
-    margin-top: -300px;
-  }
+  //@media screen and (max-width: 1280px) {
+  //  width: 50%;
+  //  margin-top: -300px;
+  //}
 `;
 
 const ResultColumn = styled.div`
     display: flex;
     flex-direction: column;
-  margin-right: 24px;
+    max-width: 650px;
+    margin-right: 24px;
 `;
 
 const ResturantAdress = styled.div`
@@ -192,8 +198,10 @@ const Home = () => {
 
     const history = useHistory();
 
-    const onCardClick = useCallback((id) => {
-        history.push(`/Blog?id=${id}`);
+    const onCardClick = useCallback( async (id) => {
+        // history.push(`/Blog?id=${id}`);
+        const response = await getCityData(id)
+        setCityData(response);
     }, [])
 
     const onAddToBlogClick = useCallback((id) => {
@@ -228,10 +236,10 @@ const Home = () => {
                         <RestaurantsTitle>{"כללי"}</RestaurantsTitle>
                         <div>{generals}</div>
                     </ResultColumn>
-                    <resultColumn>
+                    <ResultColumn>
                         <RestaurantsTitle>{"מסעדות"}</RestaurantsTitle>
                         <div>{restaurants}</div>
-                    </resultColumn>
+                    </ResultColumn>
                 </ResturantsAndGeneralWrapper>
             </BlogContainer>
         )
@@ -247,32 +255,32 @@ const Home = () => {
             {cityData ? <ResultToRender/> : (
                 <>
                     <CardRow>
-                        <CityCard onClick={() => onCardClick(London.id)}>
+                        <CityCard onClick={() => onCardClick(London.nameHebrew)}>
                             <CityImg src={London.imgSrc} />
                             <CityName>{London.nameHebrew} ({London.nameEnglish})</CityName>
                             <CityDesc>{London.description}</CityDesc>
                         </CityCard>
-                        <CityCard onClick={() => onCardClick(NewYork.id)}>
+                        <CityCard onClick={() => onCardClick(NewYork.nameHebrew)}>
                             <CityImg src={NewYork.imgSrc} />
                             <CityName>{NewYork.nameHebrew} ({NewYork.nameEnglish})</CityName>
                             <CityDesc>{NewYork.description}</CityDesc>
                         </CityCard>
-                        <CityCard onClick={() => onCardClick(Paris.id)}>
+                        <CityCard onClick={() => onCardClick(Paris.nameHebrew)}>
                             <CityImg src={Paris.imgSrc} />
                             <CityName>{Paris.nameHebrew} ({Paris.nameEnglish})</CityName>
                             <CityDesc>{Paris.description}</CityDesc>
                         </CityCard>
-                        <CityCard onClick={() => onCardClick(Athene.id)}>
+                        <CityCard onClick={() => onCardClick(Athene.nameHebrew)}>
                             <CityImg src={Athene.imgSrc} />
                             <CityName>{Athene.nameHebrew} ({Athene.nameEnglish})</CityName>
                             <CityDesc>{Athene.description}</CityDesc>
                         </CityCard>
-                        <CityCard onClick={() => onCardClick(Amsterdam.id)}>
+                        <CityCard onClick={() => onCardClick(Amsterdam.nameHebrew)}>
                             <CityImg src={Amsterdam.imgSrc} />
                             <CityName>{Amsterdam.nameHebrew} ({Amsterdam.nameEnglish})</CityName>
                             <CityDesc>{Amsterdam.description}</CityDesc>
                         </CityCard>
-                        <CityCard onClick={() => onCardClick(Rome.id)}>
+                        <CityCard onClick={() => onCardClick(Rome.nameHebrew)}>
                             <CityImg src={Rome.imgSrc} />
                             <CityName>{Rome.nameHebrew} ({Rome.nameEnglish})</CityName>
                             <CityDesc>{Rome.description}</CityDesc>

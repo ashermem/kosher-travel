@@ -9,7 +9,7 @@ export const SearchBar = styled.input`
   font-size: 30px;
   font-family: "Academy Engraved LET";
   text-align: right;
-  width: 80%;
+  width: 90%;
   height: 55px;
   margin-top: 95px;
   display: inline-block;
@@ -17,8 +17,8 @@ export const SearchBar = styled.input`
   border-radius: 7px;
   box-sizing: border-box;
   padding: 7px 0;
-  background-color: rgb(195, 221, 255);
-  
+  background-color: rgba(83, 188, 255, 0.42);
+
 
   :focus {
     background-color: #ffffff;
