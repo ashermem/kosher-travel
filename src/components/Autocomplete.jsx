@@ -2,7 +2,7 @@ import styled from "styled-components";
 import {useCallback, useState} from "react";
 import {citiesArray} from "../citesData";
 import {useHistory} from "react-router-dom";
-import {getCityData} from "../APIService";
+import {getCityBlogData, getCityData} from "../APIService";
 
 export const SearchBar = styled.input`
   justify-content: center;
@@ -11,7 +11,7 @@ export const SearchBar = styled.input`
   text-align: right;
   width: 90%;
   height: 55px;
-  margin-top: 95px;
+  margin-top: 45px;
   display: inline-block;
   border: 4px solid #658ccb;
   border-radius: 7px;
@@ -26,7 +26,7 @@ export const SearchBar = styled.input`
   }
 `;
 
-export const Autocomplete = ({setData}) => {
+export const Autocomplete = ({setData, state = undefined}) => {
     const history = useHistory();
     const [selectedCity, setSelectedCity] = useState(null)
     const [inputText, setInputText] = useState(null)
@@ -40,7 +40,12 @@ export const Autocomplete = ({setData}) => {
     const onEnterClick = useCallback( async (e) => {
         if (e.keyCode === 13) {
             e.preventDefault();
-            const response = await getCityData(inputText)
+            let response;
+            if( state === "blog") {
+                response = await getCityBlogData(inputText)
+            } else {
+                response = await getCityData(inputText)
+            }
             setData(response);
             // const selectedCityID = citiesArray.find(city => city.nameHebrew === inputText)?.id;
             // history.push(`/Blog?id=${selectedCityID}`);

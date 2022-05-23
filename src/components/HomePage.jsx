@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { Autocomplete } from "./Autocomplete";
 import { CityText, CityTitle} from "./BlogPage";
 import {getCityData} from "../APIService";
+import {SubNav} from "./SubNav";
 
 export const Credit = styled.div`
   margin-top: 24px;
@@ -198,6 +199,11 @@ const Home = () => {
 
     const history = useHistory();
 
+    const onNavClick = useCallback( async (id) => {
+        history.push(`/Blog`);
+    }, [])
+
+
     const onCardClick = useCallback( async (id) => {
         // history.push(`/Blog?id=${id}`);
         const response = await getCityData(id)
@@ -248,9 +254,9 @@ const Home = () => {
     return (
         <HomeContainer>
             <WebsiteHeader onClick={() => setCityData(null)}>
-                <AddToBlogButton onClick={onAddToBlogClick}>הוסף לבלוג</AddToBlogButton>
                 {"כיפת השמיים"}
             </WebsiteHeader>
+            <SubNav current={"home"}/>
             <Autocomplete setData={setCityData} />
             {cityData ? <ResultToRender/> : (
                 <>
