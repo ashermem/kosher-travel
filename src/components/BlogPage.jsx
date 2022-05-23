@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import {AddToBlogButton, WebsiteHeader} from "./HomePage";
+import {AddToBlogButton, CardRow, CityCard, CityDesc, CityImg, CityName, WebsiteHeader} from "./HomePage";
 import {useParams, useLocation, useHistory} from "react-router-dom";
-import {citiesArray} from "../citesData";
+import {Amsterdam, citiesArray, London} from "../citesData";
 import React, {useCallback, useState} from "react";
 import { Autocomplete } from "./Autocomplete";
 import {SubNav} from "./SubNav";
-import {uploadCityBlog} from "../APIService";
+import {getCityBlogData, uploadCityBlog} from "../APIService";
 
 const BlogContainer = styled.div`
   display: flex;
@@ -28,6 +28,23 @@ export const BlogImg = styled.img`
   @media screen and (max-width: 1280px) {
     width: 30%;
   }
+`;
+
+
+export const BlogWideImg = styled.img`
+  //align-self: flex-start;
+  width: 90%;
+  //height: 350px;
+  margin-top: 24px;
+  //margin-left: 200px;
+  float: left;
+  //position: absolute;
+  z-index: -1;
+  border-radius: 5px;
+  //@media screen and (max-width: 1280px) {
+  //  width: 50%;
+  //  margin-top: -300px;
+  //}
 `;
 
 export const CityTitle = styled.div`
@@ -120,6 +137,12 @@ export const AddCityDesc = styled.textarea`
   }
 `;
 
+export const EmptyState = styled.div`
+    font-size: 54px;
+    color: darkblue;
+  margin-top: 130px;
+`;
+
 function useQuery() {
     const { search } = useLocation();
 
@@ -146,22 +169,52 @@ export const BlogPage = () => {
             setCityBlogData(null);
         },[]);
 
-    const onSubmit = useCallback(() => {
-        uploadCityBlog(cityName, cityDesc)
+    const onSubmit = useCallback(async() => {
+        await uploadCityBlog(cityName, cityDesc);
+        const response = await getCityBlogData(cityName);
+        setCityBlogData(response);
     },[cityName, cityDesc])
+
+    const onCardClick = useCallback((idx) => {
+        const newDataArray = cityBlogData?.slice(idx, idx + 1);
+        setCityBlogData(newDataArray)
+    },[cityBlogData])
 
     const history = useHistory();
     const myId = parseInt(useQuery().get("id"));
     const currentCity = citiesArray.find( city => city.id === myId);
 
     const ResultToRender = () => {
-        return (
-            <>
-                {cityBlogData[0]?.imgSrc && (<BlogImg src={cityBlogData[0]?.imgSrc} />)}
-                <CityTitle>{cityBlogData[0]?.city}</CityTitle>
-                <CityText>{cityBlogData[0]?.description}</CityText>
-            </>
-        )
+        if (cityBlogData.length < 1) {
+            return <EmptyState>{"מצטערים. לא מצאנו מידע כרגע :( "}</EmptyState>
+        } else if (cityBlogData.length > 1) {
+            const cards = cityBlogData.map( (city, idx) => {
+                if (idx < 6) {
+                    return (
+                        <CityCard onClick={() => onCardClick(idx)}>
+                            <CityImg src={city?.img} />
+                            <CityName>{city.city}</CityName>
+                            <CityDesc>{city.description}</CityDesc>
+                        </CityCard>
+                        )
+                    }
+                })
+
+            return (
+                        <CardRow>
+                            {cards}
+                        </CardRow>
+            )
+        }
+        else {
+            return (
+                <>
+                    {cityBlogData[0]?.imgSrc && (<BlogWideImg src={cityBlogData[0]?.img} />)}
+                    <CityTitle>{cityBlogData[0]?.city}</CityTitle>
+                    <CityText>{cityBlogData[0]?.description}</CityText>
+                </>
+            )
+        }
     }
 
     const AddToBlogToRender = () => {

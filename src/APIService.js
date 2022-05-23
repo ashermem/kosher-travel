@@ -5,6 +5,7 @@ export const getCityData = async (cityName) => {
     const response = await axios.get(`http://localhost:5000/city?name=${cityName}`, {
         method : "GET"
     });
+    console.log(response);
     return response.data;
     // return new Promise (resolve => resolve(cityMock));
 }

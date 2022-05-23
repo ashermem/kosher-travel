@@ -4,7 +4,7 @@ import {Amsterdam, Athene, London, NewYork, Paris, Rome} from "../citesData";
 import React, {useCallback, useMemo, useState} from "react";
 import { useHistory } from "react-router-dom";
 import { Autocomplete } from "./Autocomplete";
-import { CityText, CityTitle} from "./BlogPage";
+import {CityText, CityTitle, EmptyState} from "./BlogPage";
 import {getCityData} from "../APIService";
 import {SubNav} from "./SubNav";
 
@@ -60,6 +60,7 @@ export const CityName = styled.div`
   font-size: 22px;
   font-family: 'Bellefair', serif;
   color: #282c34;
+  min-width: 80px;
 `
 
 export const CityDesc = styled.div`
@@ -215,6 +216,9 @@ const Home = () => {
     }, [])
 
     const ResultToRender = () => {
+        if (cityData.restaurants.length === 0 && cityData.general.length === 0) {
+            return <EmptyState>{"מצטערים. לא מצאנו מידע כרגע :( "}</EmptyState>
+        }
         const restaurants = cityData.restaurants?.map( rest => {
                 return (
                     <ResturantContainer>
