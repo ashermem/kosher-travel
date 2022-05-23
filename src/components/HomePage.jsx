@@ -204,6 +204,10 @@ const Home = () => {
         history.push(`/Blog`);
     }, [])
 
+    const handleInfoClick = useCallback(
+        () => {
+            setCityData(null);
+        },[]);
 
     const onCardClick = useCallback( async (id) => {
         // history.push(`/Blog?id=${id}`);
@@ -260,7 +264,7 @@ const Home = () => {
             <WebsiteHeader onClick={() => setCityData(null)}>
                 {"כיפת השמיים"}
             </WebsiteHeader>
-            <SubNav current={"home"}/>
+            <SubNav current={"home"} onBlogClick={handleInfoClick}/>
             <Autocomplete setData={setCityData} />
             {cityData ? <ResultToRender/> : (
                 <>

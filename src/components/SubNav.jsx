@@ -32,9 +32,7 @@ export const SubNav = ({current, onBlogClick}) => {
     const history = useHistory();
 
     const onNavClick = useCallback( (state) => {
-        if (current === "blog") {
-            onBlogClick()
-        }
+        onBlogClick()
         history.push(state);
     }, [])
 
